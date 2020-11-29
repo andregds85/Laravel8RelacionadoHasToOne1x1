@@ -1,4 +1,4 @@
-
+#comandos
 php artisan make:seeder PermissionTableSeeder
 
 
@@ -12,17 +12,40 @@ php artisan db:seed --class=CreateAdminUserSeeder
 
 
 
+# View para chamar o Relacionamento HasOneToOne 1x1 
+/* chama  a tabela categorias dentro da tabela pacientes */
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+                <label for="exampleInputEmail1">Categoria</label>
+                <select class="form-control" name="categoria" id="categoria">
+
+                <?php
+                    use App\Models\Categoria;
+                    $tabela = categoria::all();
+                ?>
+
+                @foreach($tabela as $item)
+                <option value='{{$item->name}}' >{{$item->name}}</option>
+                @endforeach
+
+                </select>
+            </div>
+        </div>
+</div>
 
 
+/* fim do trecho de chamda de categorias */
 
 
+# Relacionamento no Modelo entre Categorias e Pacientes
 
+# Model Pacientes 
 
-
-
-
-
-
+    public function buscaCategoria(){
+        return $this->hasOne(Categoria::class,'categorias_id','name');
+    }
 
 
 
